@@ -5,7 +5,7 @@ import java.util.ArrayList;
  *
  * This is an implementation of the common HashTable datastructures.
  *
- * Authors: Jack Hughes, Jack Greco, Henry Johnson
+ * Authors: Jack Hughes
  * -JBH
  *
  */
@@ -23,10 +23,18 @@ public class HashTable {
     private int hash(String key){
         StringBuilder hashOutput = new StringBuilder();
         for(int i = 0; i < key.length(); i++){
-            hashOutput.append((int)key.charAt(i));
+            int aValue = (int)'0';
+            int toAppend = (int)key.charAt(i) - aValue;
+            hashOutput.append(toAppend);
         }
-        System.out.println(Integer.parseInt(hashOutput.toString()));
         return Integer.parseInt(hashOutput.toString()); //Return int-sequence of all chars as an index
+    }
+    private void grow(int index){
+        for(int i = 0; i <=index; i++){
+            if(values.size() <= index && i >= values.size()){
+                values.add(i,"");
+            }
+        }
     }
     //MAIN METHODS
     public void clear(){
@@ -52,6 +60,7 @@ public class HashTable {
     //Insert a value based off of a key--return the current value associated with said key if there is such a value
     public String put(String key, String value){
         int index = this.hash(key);
+        this.grow(index);
         String toReturn = null;
         if(!values.get(index).equals("")){
             //Something already here
