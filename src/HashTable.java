@@ -22,11 +22,15 @@ public class HashTable {
     //HELPER METHODS
     private int hash(String key){
         StringBuilder hashOutput = new StringBuilder();
+        int sum = 0;
         for(int i = 0; i < key.length(); i++){
             int aValue = (int)'0';
-            int toAppend = (int)key.charAt(i) - aValue;
-            hashOutput.append(toAppend);
+            int calculatedNum = ((int)key.charAt(i) - aValue) % 599;
+            sum += calculatedNum;
+            System.out.println(calculatedNum);
+            hashOutput.append(calculatedNum);
         }
+        System.out.println("Total: " + sum);
         return Integer.parseInt(hashOutput.toString()); //Return int-sequence of all chars as an index
     }
     private void grow(int index){
